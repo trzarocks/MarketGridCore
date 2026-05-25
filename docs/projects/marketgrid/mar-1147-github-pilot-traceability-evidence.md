@@ -48,3 +48,10 @@ Provide one of:
 2. Runtime with authenticated `gh` CLI configured for the target repository.
 
 Once provided, remaining steps are: push branch, open PR with `mar-traceability` template, and record PR URL + merge evidence.
+
+## Reopen follow-up (2026-05-25)
+- Board guidance received: use env vars `GITHUB_USERNAME` and `GITHUB_PWD`.
+- Runtime verification in this heartbeat:
+  - `env | rg '^GITHUB_USERNAME=|^GITHUB_PWD='` returned no matches.
+  - `env | rg -i 'github|gh_'` showed no injected GitHub credential vars.
+- Result: unblock instructions were provided in thread, but credentials are not present in process environment, so push/PR steps remain non-executable in this run.
