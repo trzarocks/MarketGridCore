@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 Owner: CTO
-Status: In Progress (blocked on GitHub auth/tooling)
+Status: Blocked (remote write/auth path unavailable in runtime)
 
 ## Objective
 Execute the MAR-1146 pilot workflow as a real issue-scoped Git/GitHub run and capture verifiable traceability evidence.
@@ -27,8 +27,9 @@ Execute the MAR-1146 pilot workflow as a real issue-scoped Git/GitHub run and ca
 - Commit body traceability line: `Issue: MAR-1147`
 
 5. Remote delivery attempt
-- Attempted to push pilot branch to origin.
-- Blocked by missing GitHub authentication in current runtime (no `gh` CLI; no configured git credential/token).
+- `git ls-remote --heads origin` returned successfully (read access path works).
+- `timeout 15s bash -lc 'GIT_TERMINAL_PROMPT=0 git push -u origin mar-1147-real-github-pilot-traceability'` returned `EXIT:124` (push path hangs/times out in this runtime).
+- `gh` CLI is not installed (`which gh` -> not found), so PR creation via `gh` is unavailable.
 
 ## Traceability evidence captured
 - Branch: `mar-1147-real-github-pilot-traceability`
@@ -39,7 +40,7 @@ Execute the MAR-1146 pilot workflow as a real issue-scoped Git/GitHub run and ca
 ## What is complete
 - Real local pilot run executed under MAR-1145/MAR-1146 rules.
 - Issue-to-branch and issue-to-commit traceability evidence captured.
-- Blocker is concrete and reproducible: GitHub auth/tooling not available in this environment.
+- Blocker is concrete and reproducible: remote write/PR path is unavailable from this runtime.
 
 ## Unblock action
 Provide one of:
