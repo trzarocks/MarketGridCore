@@ -1,0 +1,19 @@
+{
+  "contract_version": "v2.0",
+  "artifact_revision": 1,
+  "issue": "MAR-1136",
+  "pipeline": "marketgrid_incremental_build",
+  "stage": "validate",
+  "batch_id": "mar1136-geohub-out-of-window",
+  "input_refs": ["sample:discover"],
+  "output_refs": ["sample:validate"],
+  "quality_gate": {
+    "status": "pass",
+    "reason_codes": ["outcome:pass_generation_ready"]
+  },
+  "metrics": {
+    "records_in": 5,
+    "records_out": 5,
+    "duration_seconds": 12
+  }
+}

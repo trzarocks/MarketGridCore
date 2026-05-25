@@ -1,0 +1,5 @@
+# MarketGridCore: local/system noise only
+.DS_Store
+*.swp
+*.swo
+*.tmp

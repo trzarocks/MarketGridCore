@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Banditos Bar &amp; Kitchen | Towson Listing Prototype</title>
+  <style>
+    :root {
+      --bg: #f6f0e3;
+      --surface: #fffaf2;
+      --surface-soft: #f5ebda;
+      --text: #201d1a;
+      --muted: #625951;
+      --line: #dccdb6;
+      --line-strong: #c9b392;
+      --accent-red: #7a1b16;
+      --accent-red-strong: #6f1713;
+      --radius: 10px;
+      --radius-xs: 4px;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, rgba(241,223,173,.28), transparent 32%), linear-gradient(180deg, #f8f1e2 0%, var(--bg) 18%, #f7efe2 100%);
+      color: var(--text);
+      line-height: 1.58;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: var(--max); margin: 0 auto; padding: 28px 24px 80px; }
+    .page-section { margin-top: 0; }
+    .section-shell { padding: 34px 0; border-top: 1px solid var(--line); }
+    .page-section:first-of-type .section-shell { border-top: 0; padding-top: 0; }
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      margin: 0 0 4px;
+      font-size: clamp(1.45rem, 2.6vw, 2.15rem);
+      line-height: 1.04;
+      letter-spacing: -.04em;
+    }
+    .section-desc { margin: 0; max-width: 64ch; color: var(--muted); }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 26px 0 30px;
+      border-top: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(43,38,34,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(43,38,34,.035) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.2));
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; }
+    .hero-listing-grid { display: grid; grid-template-columns: 1.55fr 1fr; gap: 24px; align-items: start; }
+    .hero .section-title { font-size: clamp(2.35rem, 5vw, 4rem); line-height: .97; max-width: 12ch; }
+    .cg-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--accent-red);
+      font-size: .82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .cg-eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: var(--accent-red);
+    }
+    .kv { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
+    .kv span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: var(--radius-xs);
+      font-size: .82rem;
+      background: var(--surface-soft);
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+    .listing-quick-card {
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+    .card-title {
+      margin: 0;
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .listing-meta { display: grid; gap: 8px; color: var(--muted); font-size: .95rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: var(--radius-xs);
+      font-weight: 700;
+      letter-spacing: .01em;
+      background: linear-gradient(180deg, var(--accent-red), var(--accent-red-strong));
+      color: #fffaf2;
+      box-shadow: 0 10px 18px rgba(111,23,19,.18);
+      width: max-content;
+    }
+    .secondary-link { color: var(--accent-red); font-weight: 600; font-size: .95rem; }
+    .breadcrumbs { font-size: .85rem; color: var(--muted); margin-bottom: 12px; }
+    .breadcrumbs a { color: var(--accent-red); font-weight: 600; }
+    .breadcrumbs span { margin: 0 6px; }
+    .section-body-secondary { color: var(--muted); font-size: .96rem; }
+    .local-context-shell {
+      background: rgba(255,250,242,.55);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    ul { margin: 0; padding-left: 20px; }
+    h1, p { margin: 0; }
+    @media (max-width: 800px) {
+      .hero-listing-grid { grid-template-columns: 1fr; }
+      .page { padding: 18px 18px 64px; }
+    }
+  </style>
+</head>
+<body>
+<main class="page">
+  <section class="page-section">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span>
+      <a href="/maryland/">Maryland</a><span>/</span>
+      <a href="/towson-md/">Towson</a><span>/</span>
+      <a href="/towson-md/restaurants/">Restaurants</a><span>/</span>
+      <strong aria-current="page">Banditos Bar &amp; Kitchen</strong>
+    </nav>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell hero">
+      <div class="hero-inner hero-listing-grid">
+        <div>
+          <div class="cg-eyebrow">Restaurants</div>
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Banditos Bar &amp; Kitchen</h1>
+              <p class="section-desc">Banditos Bar &amp; Kitchen is a Towson restaurant with direct bar, takeout, and late-night signals in the approved source set. Keep it in the mix when the plan may shift from dinner into drinks or when you want a later meal option with takeout still available as a fallback. The useful decision here is format and timing, not assumed neighborhood vibe or unsupported dining claims.</p>
+            </div>
+          </div>
+          <div class="kv">
+            <span>Towson, MD</span>
+          </div>
+        </div>
+        <aside class="listing-quick-card" aria-label="Quick Info">
+          <p class="card-title">Quick Info</p>
+          <div class="listing-meta">
+            <div><strong>Phone:</strong> (443) 275-2072</div>
+            <div><strong>Address:</strong> 31 Allegheny Avenue, Towson, MD 21204</div>
+          </div>
+          <div>
+            <a class="btn" href="tel:4432752072">Call</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <header class="section-header"><h2 class="section-title">What They Do</h2></header>
+      <div class="section-body">
+        <p class="section-desc">This listing fits a bar-forward casual meal more than a one-note sit-down dinner plan. The source-backed signals support a flexible late-day stop that can work for a later meal, a drinks-first plan, or a takeout-backed decision when you want to confirm fit by phone.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <header class="section-header"><h2 class="section-title">Good For</h2></header>
+      <div class="section-body">
+        <ul>
+          <li>Bar-forward casual meal plan</li>
+          <li>Later-night restaurant option</li>
+          <li>Takeout-backed fallback if plans stay flexible</li>
+          <li>Direct phone confirmation before you commit</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <header class="section-header"><h2 class="section-title">When This Fits</h2></header>
+      <div class="section-body">
+        <ul>
+          <li>Use it when dinner may turn into drinks and you want one restaurant option that can stay flexible.</li>
+          <li>Use it when you want a later meal choice instead of an early, family-first, or quiet dinner assumption.</li>
+          <li>Use it when takeout is still on the table and you want to confirm current fit by phone before heading over.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <header class="section-header"><h2 class="section-title">Local Context</h2></header>
+      <div class="section-body-secondary">
+        <div class="local-context-shell">
+          <ul>
+            <li>This Banditos listing is anchored to the approved Towson Chamber-derived record for 31 Allegheny Avenue in Towson.</li>
+            <li>Local wording for this page should stay at the Towson plus street-address level unless newer approved Towson locality authority is added.</li>
+            <li>Do not render downtown, social-cluster, or nightlife-district framing from this artifact.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <a class="secondary-link" href="/towson-md/restaurants/">Back to Restaurants</a>
+    </div>
+  </section>
+</main>
+</body>
+</html>

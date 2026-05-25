@@ -1,0 +1,27 @@
+{
+  "contract_version": "v1.1",
+  "artifact_revision": 1,
+  "issue": "MAR-1124",
+  "pipeline": "marketgrid_incremental_build",
+  "stage": "validate",
+  "batch_id": "mar1124-batch-vslice-success",
+  "input_refs": [
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-success/enrich.packet.json"
+  ],
+  "output_refs": [
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-success/validate.packet.json",
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-success/generate.packet.json"
+  ],
+  "quality_gate": {
+    "status": "pass",
+    "reason_codes": [
+      "outcome:pass_generation_ready",
+      "transition:validate:pass_generation_ready->generate"
+    ]
+  },
+  "metrics": {
+    "records_in": 4,
+    "records_out": 4,
+    "duration_seconds": 108
+  }
+}

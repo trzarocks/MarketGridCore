@@ -1,0 +1,27 @@
+{
+  "contract_version": "v1.1",
+  "artifact_revision": 1,
+  "issue": "MAR-1130",
+  "pipeline": "marketgrid_incremental_build",
+  "stage": "validate",
+  "batch_id": "mar1130-batch-vslice-rehearsal",
+  "input_refs": [
+    "docs/projects/marketgrid/packets/MAR-1130/mar1130-batch-vslice-rehearsal/enrich.packet.json"
+  ],
+  "output_refs": [
+    "docs/projects/marketgrid/packets/MAR-1130/mar1130-batch-vslice-rehearsal/validate-pass.packet.json",
+    "docs/projects/marketgrid/packets/MAR-1130/mar1130-batch-vslice-rehearsal/generate.packet.json"
+  ],
+  "quality_gate": {
+    "status": "pass",
+    "reason_codes": [
+      "outcome:pass_with_waivers_generation_ready",
+      "transition:validate:pass_with_waivers_generation_ready->generate"
+    ]
+  },
+  "metrics": {
+    "records_in": 4,
+    "records_out": 4,
+    "duration_seconds": 77
+  }
+}

@@ -1,0 +1,35 @@
+name: Baseline CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docs-and-structure-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify baseline paths
+        run: |
+          set -euo pipefail
+          test -d docs
+          test -f docs/projects/marketgrid/mar-1145-marketgrid-git-and-github-operating-standard.md
+
+      - name: Lint markdown links and style
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: |
+            **/*.md
+
+      - name: Guard absolute local paths
+        run: |
+          set -euo pipefail
+          if rg -n "^\s*\[.*\]\((/var/home|/home/trza)" docs; then
+            echo "Found local absolute filesystem links in docs; use repo-relative paths."
+            exit 1
+          fi

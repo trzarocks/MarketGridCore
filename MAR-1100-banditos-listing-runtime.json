@@ -1,0 +1,68 @@
+{
+  "issue": "MAR-1100",
+  "generated_at": "2026-05-18T20:10:00Z",
+  "copy_handoff_source": "/var/home/trza/.paperclip/instances/default/workspaces/9690e451-7d98-4b29-8935-ceae21fc73d6/deliverables/MAR-1099-banditos-enrichment-copy-handoff.md",
+  "template_authority": "docs/templates/business-listing-template.md",
+  "design_authority": "docs/design-system/DESIGN.md",
+  "rendered_route": "/towson-md/restaurants/banditos-bar-and-kitchen/",
+  "breadcrumb": [
+    { "label": "Home", "href": "/" },
+    { "label": "Maryland", "href": "/maryland/" },
+    { "label": "Towson", "href": "/towson-md/" },
+    { "label": "Restaurants", "href": "/towson-md/restaurants/" },
+    { "label": "Banditos Bar & Kitchen", "href": null }
+  ],
+  "hero": {
+    "business_name": "Banditos Bar & Kitchen",
+    "category": "Restaurants",
+    "location": "Towson, MD",
+    "description": "Banditos Bar & Kitchen is a Towson restaurant with direct bar, takeout, and late-night signals in the approved source set. Keep it in the mix when the plan may shift from dinner into drinks or when you want a later meal option with takeout still available as a fallback. The useful decision here is format and timing, not assumed neighborhood vibe or unsupported dining claims."
+  },
+  "quick_info": {
+    "phone": "(443) 275-2072",
+    "website": "",
+    "address": "31 Allegheny Avenue, Towson, MD 21204"
+  },
+  "what_they_do": {
+    "summary": "This listing fits a bar-forward casual meal more than a one-note sit-down dinner plan. The source-backed signals support a flexible late-day stop that can work for a later meal, a drinks-first plan, or a takeout-backed decision when you want to confirm fit by phone."
+  },
+  "services_capabilities": {
+    "items": [
+      "Bar-forward casual meal plan",
+      "Later-night restaurant option",
+      "Takeout-backed fallback if plans stay flexible",
+      "Direct phone confirmation before you commit"
+    ]
+  },
+  "when_to_use": {
+    "items": [
+      "Use it when dinner may turn into drinks and you want one restaurant option that can stay flexible.",
+      "Use it when you want a later meal choice instead of an early, family-first, or quiet dinner assumption.",
+      "Use it when takeout is still on the table and you want to confirm current fit by phone before heading over."
+    ]
+  },
+  "context_local_fit": {
+    "items": [
+      "This Banditos listing is anchored to the approved Towson Chamber-derived record for 31 Allegheny Avenue in Towson.",
+      "Local wording for this page should stay at the Towson plus street-address level unless newer approved Towson locality authority is added.",
+      "Do not render downtown, social-cluster, or nightlife-district framing from this artifact."
+    ]
+  },
+  "action_panel": {
+    "primary_ctas": [
+      { "label": "Call", "href": "tel:4432752072" }
+    ]
+  },
+  "related_links": {
+    "category_page": {
+      "label": "Back to Restaurants",
+      "href": "/towson-md/restaurants/"
+    }
+  },
+  "footer_nav": {
+    "up": {
+      "label": "Back to Restaurants",
+      "href": "/towson-md/restaurants/"
+    }
+  }
+}
