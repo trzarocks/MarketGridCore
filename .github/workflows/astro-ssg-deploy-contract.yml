@@ -172,7 +172,7 @@ jobs:
           PREVIEW_URL="$(printf "%s\n" "${CLEAN_OUTPUT}" | rg -o 'https://[^[:space:]]+' | rg '\.pages\.dev/?$' | head -n 1 || true)"
           PREVIEW_ALIAS="$(printf "%s\n" "${CLEAN_OUTPUT}" | rg -o 'https://[^[:space:]]+' | rg '\.workers\.dev/?$' | head -n 1 || true)"
 
-          # Fallback: query latest preview deployment metadata if deploy output omitted URLs.
+          # Fallback: query the latest preview deployment metadata if deploy output omitted URLs.
           if [ "${DEPLOY_EXIT}" -eq 0 ] && { [ -z "${PREVIEW_URL}" ] || [ -z "${PREVIEW_ALIAS}" ]; }; then
             DEPLOY_LIST_OUTPUT="$(npx wrangler pages deployment list --project-name=${CF_PROJECT_NAME} --environment=preview 2>&1 || true)"
             printf "%s\n" "${DEPLOY_LIST_OUTPUT}" > deploy-list-output.txt
