@@ -112,6 +112,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node for Wrangler
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Download validated dist artifact
         uses: actions/download-artifact@v4
         with:
@@ -151,7 +156,7 @@ jobs:
           set -euo pipefail
           echo "Configured project name: ${CF_PROJECT_NAME}"
           echo "Checking Pages project lookup under configured account..."
-          npx wrangler pages project list
+          npx wrangler@3.114.12 pages project list
 
       - name: Deploy preview to Cloudflare Pages
         env:
@@ -162,7 +167,7 @@ jobs:
         run: |
           set -euo pipefail
           set +e
-          DEPLOY_OUTPUT="$(npx wrangler pages deploy dist --project-name=${CF_PROJECT_NAME} --branch=${CF_BRANCH} 2>&1)"
+          DEPLOY_OUTPUT="$(npx wrangler@3.114.12 pages deploy dist --project-name=${CF_PROJECT_NAME} --branch=${CF_BRANCH} 2>&1)"
           DEPLOY_EXIT=$?
           set -e
           printf "%s\n" "${DEPLOY_OUTPUT}" | tee deploy-output.txt
@@ -174,7 +179,7 @@ jobs:
 
           # Fallback: query the latest preview deployment metadata if deploy output omitted URLs.
           if [ "${DEPLOY_EXIT}" -eq 0 ] && { [ -z "${PREVIEW_URL}" ] || [ -z "${PREVIEW_ALIAS}" ]; }; then
-            DEPLOY_LIST_OUTPUT="$(npx wrangler pages deployment list --project-name=${CF_PROJECT_NAME} --environment=preview 2>&1 || true)"
+            DEPLOY_LIST_OUTPUT="$(npx wrangler@3.114.12 pages deployment list --project-name=${CF_PROJECT_NAME} --environment=preview 2>&1 || true)"
             printf "%s\n" "${DEPLOY_LIST_OUTPUT}" > deploy-list-output.txt
             CLEAN_LIST_OUTPUT="$(printf "%s\n" "${DEPLOY_LIST_OUTPUT}" | sed -E 's/\x1B\\[[0-9;]*[A-Za-z]//g')"
 
