@@ -1,0 +1,18 @@
+{
+  "name": "astro-ssg-thin-slice",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "validate:data": "node scripts/validate-snapshot.mjs",
+    "validate:routes": "node scripts/validate-routes.mjs",
+    "build:inspect": "node scripts/inspect-build.mjs",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.9.0"
+  }
+}

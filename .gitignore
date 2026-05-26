@@ -1,5 +1,18 @@
 # MarketGridCore: local/system noise only
+
+# OS artifacts
 .DS_Store
+Thumbs.db
+
+# Editor/IDE artifacts
+.idea/
+.vscode/
 *.swp
 *.swo
+*~
+
+# Local temp/runtime artifacts
 *.tmp
+*.temp
+*.log
+*.pid

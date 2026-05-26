@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { thinSlice } from '../data/thin-slice';
+---
+<BaseLayout title="MarketGrid Thin Slice">
+  <h1>MarketGrid Astro SSG Thin Slice</h1>
+  <p>Static scaffold for repeatable geo/category/listing slices under one governed state.</p>
+  <a class="cta" href={`/${thinSlice.state.slug}/`}>Open {thinSlice.state.name}</a>
+</BaseLayout>

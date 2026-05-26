@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import { thinSlice } from '../../../../../data/thin-slice';
+
+export function getStaticPaths() {
+  return thinSlice.slices.map((slice) => ({
+    params: {
+      state: thinSlice.state.slug,
+      geo: slice.geo.slug,
+      category: slice.category.slug
+    },
+    props: { slice }
+  }));
+}
+
+const { slice } = Astro.props;
+const statePath = `/${thinSlice.state.slug}/`;
+const geoPath = `/${thinSlice.state.slug}/${slice.geo.slug}/`;
+---
+<BaseLayout title={`${slice.category.name} in ${slice.geo.name} | MarketGrid`}>
+  <nav aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href={statePath}>{thinSlice.state.name}</a></li>
+      <li><a href={geoPath}>{slice.geo.name}</a></li>
+      <li>Business Directory</li>
+      <li aria-current="page">{slice.category.name}</li>
+    </ol>
+  </nav>
+  <h1>{slice.category.name} in {slice.geo.name}</h1>
+  <p>Category page for the governed listing subset in this slice.</p>
+  <ul>
+    {slice.listings.map((listing) => (
+      <li>
+        <a href={`/${thinSlice.state.slug}/${slice.geo.slug}/business-directory/${slice.category.slug}/${listing.slug}/`}>
+          {listing.name}
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
