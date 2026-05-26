@@ -167,8 +167,10 @@ jobs:
           set -e
           printf "%s\n" "${DEPLOY_OUTPUT}" | tee deploy-output.txt
 
-          PREVIEW_URL="$(printf "%s\n" "${DEPLOY_OUTPUT}" | rg -o 'https://[^ ]+\\.pages\\.dev' | head -n 1 || true)"
-          PREVIEW_ALIAS="$(printf "%s\n" "${DEPLOY_OUTPUT}" | rg -o 'https://[^ ]+\\.workers\\.dev' | head -n 1 || true)"
+          # Wrangler output may include ANSI control sequences; strip them before URL extraction.
+          CLEAN_OUTPUT="$(printf "%s\n" "${DEPLOY_OUTPUT}" | sed -E 's/\x1B\\[[0-9;]*[A-Za-z]//g')"
+          PREVIEW_URL="$(printf "%s\n" "${CLEAN_OUTPUT}" | rg -o 'https://[^[:space:]]+' | rg '\.pages\.dev/?$' | head -n 1 || true)"
+          PREVIEW_ALIAS="$(printf "%s\n" "${CLEAN_OUTPUT}" | rg -o 'https://[^[:space:]]+' | rg '\.workers\.dev/?$' | head -n 1 || true)"
           {
             echo "preview_url=${PREVIEW_URL}"
             echo "preview_alias=${PREVIEW_ALIAS}"
