@@ -165,7 +165,7 @@ jobs:
           PROJECT_LIST_OUTPUT="$(npx wrangler@3.114.12 pages project list 2>&1)"
           printf "%s\n" "${PROJECT_LIST_OUTPUT}" | tee project-list-output.txt
           CLEAN_PROJECT_LIST="$(printf "%s\n" "${PROJECT_LIST_OUTPUT}" | sed -E 's/\x1B\\[[0-9;]*[A-Za-z]//g')"
-          if ! printf "%s\n" "${CLEAN_PROJECT_LIST}" | rg -q "(^|[[:space:]])${CF_PROJECT_NAME}([[:space:]]|$)"; then
+          if ! printf "%s\n" "${CLEAN_PROJECT_LIST}" | grep -Eq "(^|[[:space:]])${CF_PROJECT_NAME}([[:space:]]|$)"; then
             echo "Configured CLOUDFLARE_PAGES_PROJECT was not found in this account."
             echo "Expected project: ${CF_PROJECT_NAME}"
             echo "Set CLOUDFLARE_PAGES_PROJECT to an existing Cloudflare Pages project name for account ${CLOUDFLARE_ACCOUNT_ID}."
