@@ -171,6 +171,22 @@ jobs:
           CLEAN_OUTPUT="$(printf "%s\n" "${DEPLOY_OUTPUT}" | sed -E 's/\x1B\\[[0-9;]*[A-Za-z]//g')"
           PREVIEW_URL="$(printf "%s\n" "${CLEAN_OUTPUT}" | rg -o 'https://[^[:space:]]+' | rg '\.pages\.dev/?$' | head -n 1 || true)"
           PREVIEW_ALIAS="$(printf "%s\n" "${CLEAN_OUTPUT}" | rg -o 'https://[^[:space:]]+' | rg '\.workers\.dev/?$' | head -n 1 || true)"
+
+          # Fallback: query latest preview deployment metadata if deploy output omitted URLs.
+          if [ "${DEPLOY_EXIT}" -eq 0 ] && { [ -z "${PREVIEW_URL}" ] || [ -z "${PREVIEW_ALIAS}" ]; }; then
+            DEPLOY_LIST_OUTPUT="$(npx wrangler pages deployment list --project-name=${CF_PROJECT_NAME} --environment=preview 2>&1 || true)"
+            printf "%s\n" "${DEPLOY_LIST_OUTPUT}" > deploy-list-output.txt
+            CLEAN_LIST_OUTPUT="$(printf "%s\n" "${DEPLOY_LIST_OUTPUT}" | sed -E 's/\x1B\\[[0-9;]*[A-Za-z]//g')"
+
+            if [ -z "${PREVIEW_URL}" ]; then
+              PREVIEW_URL="$(printf "%s\n" "${CLEAN_LIST_OUTPUT}" | rg -o 'https://[^[:space:]]+' | rg '\.pages\.dev/?$' | head -n 1 || true)"
+            fi
+
+            if [ -z "${PREVIEW_ALIAS}" ]; then
+              PREVIEW_ALIAS="$(printf "%s\n" "${CLEAN_LIST_OUTPUT}" | rg -o 'https://[^[:space:]]+' | rg '\.workers\.dev/?$' | head -n 1 || true)"
+            fi
+          fi
+
           {
             echo "preview_url=${PREVIEW_URL}"
             echo "preview_alias=${PREVIEW_ALIAS}"
@@ -188,7 +204,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: astro-ssg-preview-debug-${{ github.sha }}
-          path: apps/astro-ssg-thin-slice/deploy-output.txt
+          path: |
+            apps/astro-ssg-thin-slice/deploy-output.txt
+            apps/astro-ssg-thin-slice/deploy-list-output.txt
           if-no-files-found: ignore
 
       - name: Upload preview deployment evidence
