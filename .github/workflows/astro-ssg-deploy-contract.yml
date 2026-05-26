@@ -125,9 +125,22 @@ jobs:
           CF_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
         run: |
           set -euo pipefail
-          test -n "${CF_API_TOKEN}"
-          test -n "${CF_ACCOUNT_ID}"
-          test -n "${CF_PROJECT_NAME}"
+          missing=0
+          if [ -z "${CF_API_TOKEN}" ]; then
+            echo "Missing required secret: CLOUDFLARE_API_TOKEN"
+            missing=1
+          fi
+          if [ -z "${CF_ACCOUNT_ID}" ]; then
+            echo "Missing required secret: CLOUDFLARE_ACCOUNT_ID"
+            missing=1
+          fi
+          if [ -z "${CF_PROJECT_NAME}" ]; then
+            echo "Missing required variable: CLOUDFLARE_PAGES_PROJECT"
+            missing=1
+          fi
+          if [ "${missing}" -ne 0 ]; then
+            exit 1
+          fi
 
       - name: Deploy preview to Cloudflare Pages
         id: cf_pages
