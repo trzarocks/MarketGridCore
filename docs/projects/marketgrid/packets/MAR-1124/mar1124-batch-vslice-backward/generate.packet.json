@@ -1,0 +1,27 @@
+{
+  "contract_version": "v1.1",
+  "artifact_revision": 1,
+  "issue": "MAR-1124",
+  "pipeline": "marketgrid_incremental_build",
+  "stage": "generate",
+  "batch_id": "mar1124-batch-vslice-backward",
+  "input_refs": [
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-backward/validate-pass.packet.json"
+  ],
+  "output_refs": [
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-backward/generate.packet.json",
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-backward/validate.packet.json"
+  ],
+  "quality_gate": {
+    "status": "fail",
+    "reason_codes": [
+      "qa_fail",
+      "transition:generate:qa_fail->validate"
+    ]
+  },
+  "metrics": {
+    "records_in": 3,
+    "records_out": 3,
+    "duration_seconds": 112
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "state": {
+    "name": "Maryland",
+    "slug": "maryland"
+  },
+  "slices": [
+    {
+      "geo": {
+        "name": "Towson, MD",
+        "slug": "towson-md"
+      },
+      "category": {
+        "name": "Restaurants",
+        "slug": "restaurants"
+      },
+      "listings": [
+        {
+          "name": "Banditos Bar and Kitchen",
+          "slug": "banditos-bar-and-kitchen",
+          "phone": "(410) 560-7900",
+          "address": "31 Allegheny Ave, Towson, MD 21204"
+        }
+      ]
+    },
+    {
+      "geo": {
+        "name": "Columbia, MD",
+        "slug": "columbia-md"
+      },
+      "category": {
+        "name": "Plumbers",
+        "slug": "plumbers"
+      },
+      "listings": [
+        {
+          "name": "Saffer Plumbing and Heating",
+          "slug": "saffer-plumbing-and-heating",
+          "phone": "(410) 730-5420",
+          "address": "8815 Centre Park Dr, Columbia, MD 21045"
+        },
+        {
+          "name": "Heil Plumbing DSM",
+          "slug": "heil-plumbing-dsm",
+          "phone": "(410) 888-7177",
+          "address": "9085 Guilford Rd, Columbia, MD 21046"
+        },
+        {
+          "name": "Prime Plumbing",
+          "slug": "prime-plumbing",
+          "phone": "(443) 864-5423",
+          "address": "6680 Cradlerock Way, Columbia, MD 21045"
+        }
+      ]
+    }
+  ]
+}

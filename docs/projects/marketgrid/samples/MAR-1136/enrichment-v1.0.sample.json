@@ -1,0 +1,18 @@
+{
+  "contract_version": "v1.0",
+  "artifact_revision": 1,
+  "meal_role": "casual dinner",
+  "daypart": "dinner",
+  "dining_mode": "casual meal",
+  "occasion_fit": ["downtown evening"],
+  "locality_basis": {
+    "label": "citywide",
+    "kind": "fallback",
+    "source_confidence": "fallback"
+  },
+  "use_case_frame": "Citywide dinner fallback for a practical evening stop.",
+  "source_confidence": "fallback",
+  "evidence_notes": "Sample fixture for bounded upgrade proof.",
+  "rendering_risk": ["avoid proximity claim"],
+  "fallback_copy_basis": "Keep copy broad and factual."
+}

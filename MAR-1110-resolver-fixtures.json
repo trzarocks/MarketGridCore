@@ -1,0 +1,121 @@
+{
+  "issue": "MAR-1110",
+  "purpose": "Canonical packet validator outcome resolver regression fixtures",
+  "resolver_contract": {
+    "canonical_outcomes": [
+      "pass_generation_ready",
+      "pass_with_waivers_generation_ready",
+      "pass_research_grade",
+      "fail"
+    ],
+    "never_waiverable_checks": ["GP06", "GP12"],
+    "transfer_eligible_outcomes": [
+      "pass_generation_ready",
+      "pass_with_waivers_generation_ready"
+    ]
+  },
+  "fixtures": [
+    {
+      "name": "pass_generation_ready",
+      "checks": [
+        { "check_id": "GP01", "result": "PASS" },
+        { "check_id": "GP02", "result": "PASS" }
+      ],
+      "approved_claim_count": 3,
+      "waivers": [],
+      "expected": {
+        "validator_outcome": "pass_generation_ready",
+        "transfer_eligible": true
+      }
+    },
+    {
+      "name": "pass_with_waivers_generation_ready",
+      "checks": [
+        { "check_id": "GP01", "result": "PASS" },
+        { "check_id": "GP05", "result": "WARN" }
+      ],
+      "approved_claim_count": 2,
+      "waivers": [
+        {
+          "check_id": "GP05",
+          "severity": "WARN",
+          "rationale": "Citation coverage gap is documented and constrained to a non-hard-gate section.",
+          "owner": "CTO",
+          "created_at": "2026-05-23T00:00:00Z",
+          "mitigation": "Monitor coverage on next pass and preserve reader-side compatibility."
+        }
+      ],
+      "expected": {
+        "validator_outcome": "pass_with_waivers_generation_ready",
+        "transfer_eligible": true
+      }
+    },
+    {
+      "name": "pass_research_grade",
+      "checks": [
+        { "check_id": "GP01", "result": "PASS" },
+        { "check_id": "GP04", "result": "PASS" }
+      ],
+      "approved_claim_count": 0,
+      "waivers": [],
+      "expected": {
+        "validator_outcome": "pass_research_grade",
+        "transfer_eligible": false
+      }
+    },
+    {
+      "name": "fail_unresolved_hard_gate",
+      "checks": [
+        { "check_id": "GP03", "result": "FAIL" }
+      ],
+      "approved_claim_count": 1,
+      "waivers": [],
+      "expected": {
+        "validator_outcome": "fail",
+        "transfer_eligible": false
+      }
+    },
+    {
+      "name": "fail_never_waiverable_gp06",
+      "checks": [
+        { "check_id": "GP06", "result": "FAIL" }
+      ],
+      "approved_claim_count": 2,
+      "waivers": [
+        {
+          "check_id": "GP06",
+          "severity": "FAIL",
+          "rationale": "Invalid waiver attempt for never-waiverable check.",
+          "owner": "CTO",
+          "created_at": "2026-05-23T00:00:00Z",
+          "mitigation": "Reject waiver and keep outcome fail."
+        }
+      ],
+      "expected": {
+        "validator_outcome": "fail",
+        "transfer_eligible": false
+      }
+    },
+    {
+      "name": "fail_never_waiverable_gp12",
+      "checks": [
+        { "check_id": "GP12", "result": "FAIL" }
+      ],
+      "approved_claim_count": 2,
+      "waivers": [
+        {
+          "check_id": "GP12",
+          "severity": "FAIL",
+          "rationale": "Invalid waiver attempt for never-waiverable check.",
+          "owner": "CTO",
+          "created_at": "2026-05-23T00:00:00Z",
+          "mitigation": "Reject waiver and keep outcome fail."
+        }
+      ],
+      "expected": {
+        "validator_outcome": "fail",
+        "transfer_eligible": false
+      }
+    }
+  ]
+}

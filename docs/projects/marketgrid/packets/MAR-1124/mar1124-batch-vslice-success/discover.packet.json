@@ -1,0 +1,27 @@
+{
+  "contract_version": "v1.1",
+  "artifact_revision": 1,
+  "issue": "MAR-1124",
+  "pipeline": "marketgrid_incremental_build",
+  "stage": "discover",
+  "batch_id": "mar1124-batch-vslice-success",
+  "input_refs": [
+    "docs/system/site-architecture.md"
+  ],
+  "output_refs": [
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-success/discover.packet.json",
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-success/enrich.packet.json"
+  ],
+  "quality_gate": {
+    "status": "pass",
+    "reason_codes": [
+      "stage_complete",
+      "transition:discover:complete->enrich"
+    ]
+  },
+  "metrics": {
+    "records_in": 0,
+    "records_out": 4,
+    "duration_seconds": 84
+  }
+}

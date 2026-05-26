@@ -1,0 +1,25 @@
+{
+  "contract_version": "v1.1",
+  "artifact_revision": 1,
+  "issue": "MAR-1130",
+  "pipeline": "marketgrid_incremental_build",
+  "stage": "discover",
+  "batch_id": "mar1130-batch-vslice-rehearsal",
+  "input_refs": [
+    "docs/projects/marketgrid/mar-1129-hyperagent-geohub-adoption-report.md"
+  ],
+  "output_refs": [
+    "docs/projects/marketgrid/packets/MAR-1130/mar1130-batch-vslice-rehearsal/discover.packet.json"
+  ],
+  "quality_gate": {
+    "status": "pass",
+    "reason_codes": [
+      "stage:discover_complete"
+    ]
+  },
+  "metrics": {
+    "records_in": 4,
+    "records_out": 4,
+    "duration_seconds": 42
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "issue": "MAR-1094",
+  "generated_at": "2026-05-15T04:54:43.411Z",
+  "canonical_renderer_path": "../payload-test/codex-home/payload-thin-slice/scripts/listing-page-runtime.js#renderListingPage",
+  "source_record": {
+    "source_dataset": "/var/home/trza/.paperclip/instances/default/companies/b568a7ad-ff59-4585-9d7b-0f7d1d8311e9/payload-test/codex-home/data-pipeline/data/pilot/mar903_towson_restaurants_working_subset.json",
+    "record_id": "mar902-rest-005",
+    "name": "Banditos Bar & Kitchen",
+    "slug": "banditos-bar-and-kitchen",
+    "source_directory": "Towson Chamber Guide & Business Directory 2023-2024",
+    "city": "Towson",
+    "state": "MD"
+  },
+  "rendered_route": "/towson-md/restaurants/banditos-bar-and-kitchen/",
+  "checks": {
+    "non_salisbury_record": true,
+    "l1_hero_chips_suppressed": true,
+    "l1_what_they_do_suppressed_when_no_description": true,
+    "l2_good_for_present_when_structured_services_exist": true,
+    "l2_good_for_suppressed_without_structured_services": true,
+    "l2_when_to_use_suppressed_without_tags": true,
+    "existing_renderer_reused_no_new_renderer": true
+  },
+  "sections": {
+    "level1": [
+      "hero",
+      "quick-info-panel",
+      "when-to-use-them",
+      "context-local-fit",
+      "action-panel",
+      "related-links",
+      "footer-nav"
+    ],
+    "level2_with_structured_fields": [
+      "hero",
+      "quick-info-panel",
+      "what-they-do",
+      "services-capabilities",
+      "when-to-use-them",
+      "context-local-fit",
+      "action-panel",
+      "related-links",
+      "footer-nav"
+    ],
+    "level2_suppression_probe": [
+      "hero",
+      "quick-info-panel",
+      "context-local-fit",
+      "action-panel",
+      "related-links",
+      "footer-nav"
+    ]
+  },
+  "page_preview_level1": {
+    "route": "/towson-md/restaurants/banditos-bar-and-kitchen/",
+    "pageType": "listing-page",
+    "maturityLevel": 1,
+    "breadcrumb": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "Maryland",
+        "href": "/maryland/"
+      },
+      {
+        "label": "Towson",
+        "href": "/towson-md/"
+      },
+      {
+        "label": "Restaurants",
+        "href": "/towson-md/restaurants/"
+      },
+      {
+        "label": "Banditos Bar & Kitchen",
+        "href": null
+      }
+    ],
+    "sections": [
+      {
+        "id": "hero",
+        "title": "Hero",
+        "data": {
+          "businessName": "Banditos Bar & Kitchen",
+          "categoryName": "Restaurants",
+          "location": "Towson, MD",
+          "phone": "(443) 275-2072",
+          "website": "",
+          "attributes": []
+        }
+      },
+      {
+        "id": "quick-info-panel",
+        "title": "Quick Info Panel",
+        "data": {
+          "phone": "(443) 275-2072",
+          "website": "",
+          "address": "31 Allegheny Avenue, Towson, MD 21204"
+        }
+      },
+      {
+        "id": "when-to-use-them",
+        "title": "When To Use Them",
+        "data": {
+          "description": "Use Banditos Bar & Kitchen when your Towson restaurants project matches their listed scope and you want to confirm fit directly."
+        }
+      },
+      {
+        "id": "context-local-fit",
+        "title": "Context / Local Fit",
+        "data": {
+          "geoName": "Towson",
+          "city": "Towson",
+          "state": "MD"
+        }
+      },
+      {
+        "id": "action-panel",
+        "title": "Action Panel",
+        "data": {
+          "primaryAction": {
+            "kind": "primary",
+            "label": "Call Now",
+            "href": "tel:4432752072"
+          },
+          "secondaryActions": [
+            {
+              "kind": "secondary",
+              "label": "Visit Website",
+              "href": ""
+            }
+          ]
+        }
+      },
+      {
+        "id": "related-links",
+        "title": "Related Links",
+        "data": {
+          "relatedListingsLabel": "Other Restaurants in Towson",
+          "parentCategoryPage": {
+            "label": "Restaurants in Towson",
+            "href": "/towson-md/restaurants/"
+          },
+          "geoHub": {
+            "label": "Towson Hub",
+            "href": "/towson-md/"
+          },
+          "relatedCategoriesLabel": "Related categories in Towson",
+          "relatedCategories": [
+            {
+              "label": "Electricians in Towson",
+              "href": "/towson-md/electricians/"
+            },
+            {
+              "label": "Plumbers in Towson",
+              "href": "/towson-md/plumbers/"
+            }
+          ],
+          "relatedListings": []
+        }
+      },
+      {
+        "id": "footer-nav",
+        "title": "Footer Nav",
+        "data": {
+          "breadcrumb": [
+            "Home",
+            "Maryland",
+            "Towson",
+            "Restaurants",
+            "Banditos Bar & Kitchen"
+          ]
+        }
+      }
+    ]
+  }
+}
