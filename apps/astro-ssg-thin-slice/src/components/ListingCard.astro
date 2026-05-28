@@ -1,0 +1,19 @@
+---
+interface Props {
+  name: string;
+  href: string;
+  description?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const { name, href, description, secondaryLabel, secondaryHref } = Astro.props;
+---
+<article class="listing-card">
+  <h3><a href={href}>{name}</a></h3>
+  {description ? <p>{description}</p> : null}
+  <div class="cta-group">
+    <a class="button-primary" href={href}>View Profile</a>
+    {secondaryLabel && secondaryHref ? <a class="button-secondary" href={secondaryHref}>{secondaryLabel}</a> : null}
+  </div>
+</article>

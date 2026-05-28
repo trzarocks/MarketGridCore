@@ -6,7 +6,9 @@
   "stage": "validate",
   "batch_id": "mar1130-batch-vslice-rehearsal",
   "input_refs": [
-    "docs/projects/marketgrid/packets/MAR-1130/mar1130-batch-vslice-rehearsal/enrich.packet.json"
+    "docs/projects/marketgrid/packets/MAR-1130/mar1130-batch-vslice-rehearsal/enrich.packet.json",
+    "upstream_skill:skills/5185d615-76d8-4951-99a1-a25ca749f89e|Build Geohub Intelligence Packet|build-geohub-intelligence-packet",
+    "geohub packet approval:pass_research_grade"
   ],
   "output_refs": [
     "docs/projects/marketgrid/packets/MAR-1130/mar1130-batch-vslice-rehearsal/validate-pass.packet.json",

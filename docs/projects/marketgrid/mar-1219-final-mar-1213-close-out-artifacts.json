@@ -1,0 +1,78 @@
+{
+  "issue": "MAR-1219",
+  "title": "Final MAR-1213 close-out artifacts",
+  "date": "2026-05-27",
+  "owner_role": "CTO",
+  "objective": "Provide the final MAR-1213 close-out artifact package using existing implementation-grounded evidence with no new system invention.",
+  "source_artifacts": [
+    "docs/projects/marketgrid/mar-1215-implement-canonical-geo-hub-template-for-mar-1213.md",
+    "docs/projects/marketgrid/mar-1216-close-mar-1213-acceptance-evidence-gaps.md"
+  ],
+  "runtime_implementation": [
+    "apps/astro-ssg-thin-slice/src/pages/[state]/[county]/[geo]/index.astro",
+    "apps/astro-ssg-thin-slice/src/lib/navigation.ts"
+  ],
+  "rendered_evidence": [
+    "apps/astro-ssg-thin-slice/dist/maryland/baltimore-county/towson/index.html",
+    "apps/astro-ssg-thin-slice/dist/maryland/howard-county/columbia/index.html"
+  ],
+  "acceptance_coverage": [
+    "county-aware canonical geo-hub routing implemented and built",
+    "local-first decision surface renders before nearby recovery/exploration",
+    "sparse-data fallback branch present",
+    "invalid-destination suppression active for local and nearby target sets",
+    "self-geo nearby link emission suppressed in rendered output"
+  ],
+  "verification_record_source": {
+    "artifact": "docs/projects/marketgrid/mar-1216-close-mar-1213-acceptance-evidence-gaps.md",
+    "checks": [
+      "npm --prefix apps/astro-ssg-thin-slice run validate:data -> pass",
+      "npm --prefix apps/astro-ssg-thin-slice run validate:routes -> pass",
+      "npm --prefix apps/astro-ssg-thin-slice run build -> pass",
+      "render-order and self-link suppression checks on Towson and Columbia outputs -> pass",
+      "cd apps/astro-ssg-thin-slice && npm run -s build:inspect -> pass (exit code 0)"
+    ]
+  },
+  "issue_rework_compliance": [
+    {
+      "required_item": "build:inspect result or exact exception",
+      "status": "complete",
+      "evidence": "build:inspect command executed with exit code 0 and expected county-aware route outputs"
+    },
+    {
+      "required_item": "issue compliance table",
+      "status": "complete",
+      "evidence": "present in markdown artifact section 'Issue Compliance Table'"
+    },
+    {
+      "required_item": "changed-files table",
+      "status": "complete",
+      "evidence": "present in markdown artifact section 'Changed Files Table'"
+    }
+  ],
+  "changed_files_snapshot": {
+    "capture_command": "git status --short",
+    "entries": [
+      "?? docs/projects/marketgrid/mar-1219-final-mar-1213-close-out-artifacts.md",
+      "?? docs/projects/marketgrid/mar-1219-final-mar-1213-close-out-artifacts.json",
+      "?? apps/astro-ssg-thin-slice/src/pages/[state]/[county]/",
+      "?? apps/astro-ssg-thin-slice/src/lib/"
+    ]
+  },
+  "authority_docs": [
+    "docs/system/system-map.md",
+    "docs/system/site-architecture.md",
+    "docs/system/schema-contract.md",
+    "docs/system/cmo-cto-content-handoff-governance.md",
+    "docs/projects/marketgrid/mar-1201-nearby-contextual-link-placement-contract.md"
+  ],
+  "constraints": {
+    "new_schema_fields": false,
+    "route_contract_changes": false,
+    "new_subsystems": false
+  },
+  "disposition": {
+    "mar_1213_closeout_complete": true,
+    "recommended_issue_status": "done"
+  }
+}

@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../../components/Breadcrumbs.astro';
+import Hero from '../../../../../../../components/Hero.astro';
+import Section from '../../../../../../../components/Section.astro';
+import { thinSlice } from '../../../../../../../data/thin-slice';
+import {
+  categoryHref,
+  nearbySameCategoryTargets,
+  relatedCategoryTargets,
+  relatedListingTargets,
+  suppressInvalidTargets
+} from '../../../../../../../lib/navigation';
+
+export function getStaticPaths() {
+  const paths = [];
+  for (const slice of thinSlice.slices) {
+    for (const listing of slice.listings) {
+      paths.push({
+        params: {
+          state: thinSlice.state.slug,
+          county: slice.county.slug,
+          geo: slice.geo.slug,
+          category: slice.category.slug,
+          listing: listing.slug
+        },
+        props: { slice, listing }
+      });
+    }
+  }
+  return paths;
+}
+
+const { slice, listing } = Astro.props;
+const statePath = `/${thinSlice.state.slug}/`;
+const geoPath = `/${thinSlice.state.slug}/${slice.county.slug}/${slice.geo.slug}/`;
+const categoryPath = categoryHref(slice);
+const listingPath = `${categoryPath}${listing.slug}/`;
+const listingAddress = typeof listing.address === 'string' && listing.address.trim().length > 0
+  ? listing.address
+  : 'Address is not currently available.';
+const normalizedPhone = typeof listing.phone === 'string'
+  ? listing.phone.replace(/[^\d]/g, '')
+  : '';
+const hasPhone = normalizedPhone.length > 0;
+const phoneDisplay = hasPhone ? listing.phone : 'Phone is not currently available.';
+const listingWebsite = typeof listing.website === 'string' && listing.website.trim().length > 0
+  ? listing.website.trim()
+  : '';
+const normalizedWebsiteHref = listingWebsite && /^https?:\/\//i.test(listingWebsite)
+  ? listingWebsite
+  : listingWebsite
+    ? `https://${listingWebsite.replace(/^\/+/, '')}`
+    : '';
+const websiteDisplay = normalizedWebsiteHref || 'Website is not currently available.';
+const contextualTargets = suppressInvalidTargets(
+  [
+    { label: `Back to ${slice.category.name}`, href: categoryPath, description: `Parent category in ${slice.geo.name}` },
+    ...relatedCategoryTargets(slice),
+    ...relatedListingTargets(slice, listing)
+  ],
+  listingPath
+);
+const nearbyTargets = suppressInvalidTargets(nearbySameCategoryTargets(slice), listingPath);
+---
+<BaseLayout title={`${listing.name} | MarketGrid`}>
+  <Breadcrumbs items={[
+    { label: 'Home', href: '/' },
+    { label: thinSlice.state.name, href: statePath },
+    { label: slice.county.name },
+    { label: slice.geo.name, href: geoPath },
+    { label: 'Business Directory' },
+    { label: slice.category.name, href: categoryPath },
+    { label: listing.name }
+  ]} />
+
+  <Hero
+    title={listing.name}
+    description={listingAddress}
+    primaryAction={hasPhone ? { label: 'Call Primary Contact', href: `tel:${normalizedPhone}` } : undefined}
+  />
+
+  <Section title="Business Details" description="Core conversion and detail surface for this listing.">
+    <article class="detail-panel">
+      <ul class="meta-list">
+        <li><span class="meta-label">Address:</span>{listingAddress}</li>
+        <li><span class="meta-label">Phone:</span>{phoneDisplay}</li>
+        <li>
+          <span class="meta-label">Website:</span>
+          {normalizedWebsiteHref ? <a href={normalizedWebsiteHref} rel="noopener noreferrer">{websiteDisplay}</a> : websiteDisplay}
+        </li>
+      </ul>
+    </article>
+  </Section>
+
+  {contextualTargets.length > 0 || nearbyTargets.length > 0 ? (
+    <Section title="Continue Exploring" description="Contextual exits appear first, then nearby expansion.">
+      {contextualTargets.length > 0 ? (
+        <div class="listing-grid">
+          {contextualTargets.map((target) => (
+            <article class="detail-panel">
+              <h3><a href={target.href}>{target.label}</a></h3>
+              {target.description ? <p>{target.description}</p> : null}
+            </article>
+          ))}
+        </div>
+      ) : null}
+      {nearbyTargets.length > 0 ? (
+        <div class="listing-grid">
+          {nearbyTargets.map((target) => (
+            <article class="detail-panel">
+              <h3><a href={target.href}>{target.label}</a></h3>
+              {target.description ? <p>{target.description}</p> : null}
+            </article>
+          ))}
+        </div>
+      ) : null}
+    </Section>
+  ) : null}
+</BaseLayout>

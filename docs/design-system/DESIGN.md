@@ -1,32 +1,44 @@
-# MarketGrid Design Authority — Listing Template Preservation
+# MarketGrid DESIGN.md
 
 ## Purpose
-Preserve the approved listing-template visual authority and prevent regression to generic HTML shells.
 
-## Current Static Visual Authority
-- Authoritative static visual source: `docs/templates/business-directory-universal.html`
-- This authority applies to listing-template prototype visual structure and styling direction.
+This file is now a legacy preservation note.
 
-## Authority Distinctions
-- Design prototype authority: visual language, hierarchy, and section treatment from `business-directory-universal.html`.
-- Contract prototype authority: field coverage and mapping validation artifacts.
-- Runtime JSON authority: content payload only; not a visual spec.
+It preserves the high-level visual direction of the historical MarketGrid prototype while delegating implementation-ready contract authority to:
+- `docs/design-system/design-system-consistency.md`
+- `docs/design-system/component-inventory.md`
+- `docs/design-system/page-assembly-rules.md`
 
-## Preservation Rule
-Unless explicitly assigned a redesign task, agents must preserve the existing MarketGrid visual direction when generating or updating listing template outputs.
+If those files and this file differ, the three canonical contract files win.
 
-## Required Listing Behaviors To Preserve
-- Two-column hero with Quick Info/CTA on the right (desktop), stacked on mobile.
-- Hero chips represent location/locality context, not `Good For` tags.
-- `Good For` maps from `services_capabilities.items`.
-- `Local Context` uses secondary treatment.
-- No duplicate lower Action Panel when hero CTA is present.
-- No debug/state/contract UI in user-facing output.
-- Website row label shown as `Visit Website`.
+## Legacy Visual Reference
 
-## Non-Goals
-This document does not authorize:
-- template redesign,
-- copy rewrites,
-- routing changes,
-- CMS/frontend implementation.
+- Historical visual source: `docs/templates/business-directory-universal.html`
+- Use it as a visual preservation reference only.
+- Do not use it as the sole implementation contract for Astro templates.
+
+## Preserved Direction
+
+Future realization must preserve these broad qualities unless a redesign issue explicitly changes them:
+- warm local-directory tone
+- restrained Maryland red and gold accents
+- structured hierarchy over decorative styling
+- quiet breadcrumbs and metadata
+- strong but singular primary CTA treatment
+- responsive section and card rhythm
+
+## Explicit Non-Authority Areas
+
+This file no longer owns:
+- token-by-token color rules
+- typography role rules
+- reusable component definitions
+- page assembly rules
+- component state behavior
+- data requirements for interactions
+
+## Supersession Note
+
+`DESIGN.md` has been absorbed into the canonical design-system contract set for implementation work.
+
+Use this file only to preserve legacy prototype intent and to avoid generic-shell regressions.

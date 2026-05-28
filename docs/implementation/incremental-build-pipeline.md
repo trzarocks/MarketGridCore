@@ -129,6 +129,31 @@ Resolver rules:
 2. No custom outcome labels are allowed in packet routing logic.
 3. Backward transitions must appear explicitly in packet trail (`validate:fail -> enrich`, `generate:qa_fail -> validate`).
 
+### Geohub Intelligence Packet Prerequisite Gate
+This gate applies before any category/listing generation path is allowed to run.
+
+Required upstream skill identity:
+1. `skills/5185d615-76d8-4951-99a1-a25ca749f89e`
+2. Registry name: `Build Geohub Intelligence Packet`
+3. Slug: `build-geohub-intelligence-packet`
+
+Gate enforcement rules:
+1. Any `validate` packet that routes to `generate` via
+   - `transition:validate:pass_generation_ready->generate`, or
+   - `transition:validate:pass_with_waivers_generation_ready->generate`
+   must include explicit geohub prerequisite evidence in `input_refs`.
+2. The prerequisite evidence must trace to one of:
+   - an approved geohub packet artifact, or
+   - a current-task geohub packet creation artifact.
+3. Approval floor for accepted geohub packet evidence is `pass_research_grade` or stronger:
+   - `pass_research_grade`
+   - `pass_with_waivers_generation_ready`
+   - `pass_generation_ready`
+4. If geohub prerequisite evidence is missing, routing to `generate` is invalid and the batch remains non-transfer-eligible for generation.
+
+Evidence traceability requirement:
+1. Repo-local workflow notes, proof artifacts, and verifier outputs for this gate must name the upstream skill identity above so integration cannot drift to a different geohub packet source.
+
 ## Stage Definitions
 
 ### `discover`

@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import Hero from '../../../../components/Hero.astro';
+import Section from '../../../../components/Section.astro';
+import { thinSlice } from '../../../../data/thin-slice';
+import { categoryHref, nearbyGeoTargets, suppressInvalidTargets } from '../../../../lib/navigation';
+
+export function getStaticPaths() {
+  return thinSlice.slices.map((slice) => ({
+    params: {
+      state: thinSlice.state.slug,
+      county: slice.county.slug,
+      geo: slice.geo.slug
+    },
+    props: { slice }
+  }));
+}
+
+const { slice } = Astro.props;
+const statePath = `/${thinSlice.state.slug}/`;
+const geoPath = `/${thinSlice.state.slug}/${slice.county.slug}/${slice.geo.slug}/`;
+const categoryPath = categoryHref(slice);
+const localCategoryTargets = suppressInvalidTargets(
+  [{ label: slice.category.name, href: categoryPath, description: 'Primary decision surface for this route family.' }],
+  geoPath
+);
+const nearbyTargets = suppressInvalidTargets(nearbyGeoTargets(slice), geoPath);
+const hasLocalExploration = localCategoryTargets.length > 0;
+const primaryGeoAction = hasLocalExploration
+  ? { label: `Browse ${slice.category.name}`, href: localCategoryTargets[0].href }
+  : undefined;
+---
+<BaseLayout title={`${slice.geo.name} Geo Hub | MarketGrid`}>
+  <Breadcrumbs items={[
+    { label: 'Home', href: '/' },
+    { label: thinSlice.state.name, href: statePath },
+    { label: slice.county.name },
+    { label: slice.geo.name }
+  ]} />
+
+  <Hero
+    title={slice.geo.name}
+    description="Geo hub root with onward navigation into the business directory category slice."
+    primaryAction={primaryGeoAction}
+  />
+
+  {hasLocalExploration ? (
+    <Section title="Explore the Directory" description="Move into the first category surface for this thin-slice geo.">
+      <div class="listing-grid">
+        {localCategoryTargets.map((target) => (
+          <article class="detail-panel">
+            <h3><a href={target.href}>{target.label}</a></h3>
+            {target.description ? <p>{target.description}</p> : null}
+          </article>
+        ))}
+      </div>
+    </Section>
+  ) : (
+    <Section title="Explore the Directory" description="No local directory coverage is available for this geo right now.">
+      <article class="detail-panel">
+        <h3>Coverage is currently limited</h3>
+        <p>Use another nearby destination to continue exploring this service path.</p>
+      </article>
+    </Section>
+  )}
+
+  {nearbyTargets.length > 0 ? (
+    <Section title="Nearby Places" description="Explore nearby geos after reviewing local options.">
+      <div class="listing-grid">
+        {nearbyTargets.map((target) => (
+          <article class="detail-panel">
+            <h3><a href={target.href}>{target.label}</a></h3>
+            {target.description ? <p>{target.description}</p> : null}
+          </article>
+        ))}
+      </div>
+    </Section>
+  ) : null}
+</BaseLayout>

@@ -8,7 +8,7 @@ export function getStaticPaths() {
 
 const geoLinks = thinSlice.slices.map((slice) => ({
   name: slice.geo.name,
-  href: `/${thinSlice.state.slug}/${slice.geo.slug}/`
+  href: `/${thinSlice.state.slug}/${slice.county.slug}/${slice.geo.slug}/`
 }));
 ---
 <BaseLayout title={`${thinSlice.state.name} | MarketGrid`}>

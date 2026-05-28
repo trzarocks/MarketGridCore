@@ -9,7 +9,7 @@ const data = JSON.parse(await fs.readFile(dataPath, 'utf8'));
 
 const urls = ['/', `/${data.state.slug}/`];
 for (const slice of data.slices) {
-  const geoRoot = `/${data.state.slug}/${slice.geo.slug}/`;
+  const geoRoot = `/${data.state.slug}/${slice.county.slug}/${slice.geo.slug}/`;
   const categoryRoot = `${geoRoot}business-directory/${slice.category.slug}/`;
   urls.push(geoRoot, categoryRoot);
   for (const listing of slice.listings) {

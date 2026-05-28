@@ -6,7 +6,9 @@
   "stage": "validate",
   "batch_id": "mar1124-batch-vslice-backward",
   "input_refs": [
-    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-backward/enrich.packet.json"
+    "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-backward/enrich.packet.json",
+    "upstream_skill:skills/5185d615-76d8-4951-99a1-a25ca749f89e|Build Geohub Intelligence Packet|build-geohub-intelligence-packet",
+    "geohub packet approval:pass_with_waivers_generation_ready"
   ],
   "output_refs": [
     "docs/projects/marketgrid/packets/MAR-1124/mar1124-batch-vslice-backward/validate-pass.packet.json",
