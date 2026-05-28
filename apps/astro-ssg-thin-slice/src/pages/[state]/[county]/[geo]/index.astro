@@ -27,6 +27,9 @@ const localCategoryTargets = suppressInvalidTargets(
 );
 const nearbyTargets = suppressInvalidTargets(nearbyGeoTargets(slice), geoPath);
 const hasLocalExploration = localCategoryTargets.length > 0;
+const primaryGeoAction = hasLocalExploration
+  ? { label: `Browse ${slice.category.name}`, href: localCategoryTargets[0].href }
+  : undefined;
 ---
 <BaseLayout title={`${slice.geo.name} Geo Hub | MarketGrid`}>
   <Breadcrumbs items={[
@@ -39,7 +42,7 @@ const hasLocalExploration = localCategoryTargets.length > 0;
   <Hero
     title={slice.geo.name}
     description="Geo hub root with onward navigation into the business directory category slice."
-    primaryAction={{ label: `Browse ${slice.category.name}`, href: categoryPath }}
+    primaryAction={primaryGeoAction}
   />
 
   {hasLocalExploration ? (
