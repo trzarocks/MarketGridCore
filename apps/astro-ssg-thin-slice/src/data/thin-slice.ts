@@ -5,9 +5,13 @@ export const thinSlice = {
   },
   slices: [
     {
+      county: {
+        name: 'Baltimore County',
+        slug: 'baltimore-county'
+      },
       geo: {
         name: 'Towson, MD',
-        slug: 'towson-md'
+        slug: 'towson'
       },
       category: {
         name: 'Restaurants',
@@ -23,9 +27,13 @@ export const thinSlice = {
       ]
     },
     {
+      county: {
+        name: 'Howard County',
+        slug: 'howard-county'
+      },
       geo: {
         name: 'Columbia, MD',
-        slug: 'columbia-md'
+        slug: 'columbia'
       },
       category: {
         name: 'Plumbers',

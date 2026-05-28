@@ -11,12 +11,154 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
     <style>
-      :root { font-family: sans-serif; }
-      body { margin: 0; line-height: 1.5; }
-      main { max-width: 880px; margin: 0 auto; padding: 24px; }
-      nav ol { display: flex; gap: 8px; list-style: none; padding: 0; }
-      a { color: #0b4c8c; }
-      .cta { display: inline-block; background: #0b4c8c; color: #fff; padding: 10px 14px; text-decoration: none; border-radius: 6px; }
+      :root {
+        --bg: #f6f0e3;
+        --surface: #fffaf2;
+        --surface-soft: #f5ebda;
+        --surface-featured: #f6ecd1;
+        --text: #201d1a;
+        --muted: #625951;
+        --line: #dccdb6;
+        --line-strong: #c9b392;
+        --accent-gold: #b98a24;
+        --accent-strong: #8d6714;
+        --accent-red: #7a1b16;
+        --accent-red-strong: #6f1713;
+        --accent-red-soft: #f2d9d5;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        line-height: 1.5;
+        background:
+          radial-gradient(circle at 5% 0%, rgba(185, 138, 36, 0.16), transparent 45%),
+          linear-gradient(180deg, #faf3e4 0%, var(--bg) 70%);
+      }
+
+      main {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 28px 24px 80px;
+      }
+
+      .breadcrumb ol {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px;
+      }
+
+      .breadcrumb li { color: var(--muted); }
+      .breadcrumb li + li::before { content: "/"; margin-right: 8px; color: var(--line-strong); }
+      .breadcrumb a { color: var(--accent-red); }
+
+      .page-section {
+        border-top: 1px solid var(--line);
+        padding: 34px 0;
+      }
+
+      .hero.page-section {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .section-shell {
+        max-width: 880px;
+      }
+
+      .hero-panel,
+      .listing-card,
+      .detail-panel {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(1.35rem, 2.5vw, 2rem);
+        line-height: 1.16;
+        letter-spacing: -0.01em;
+      }
+
+      h3 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+
+      p { margin: 0; color: var(--muted); }
+      .section-header { margin-bottom: 14px; }
+      .section-header p { margin-top: 6px; }
+
+      .listing-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .cta-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .button-primary,
+      .button-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .button-primary {
+        background: var(--accent-red);
+        color: #fff;
+      }
+
+      .button-primary:hover { background: var(--accent-red-strong); }
+
+      .button-secondary {
+        color: var(--accent-red);
+        border: 1px solid var(--line-strong);
+        background: var(--surface-soft);
+      }
+
+      .meta-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+      }
+
+      .meta-label {
+        color: var(--accent-strong);
+        font-weight: 600;
+        margin-right: 6px;
+      }
+
+      @media (max-width: 720px) {
+        main {
+          padding: 18px 18px 64px;
+        }
+      }
     </style>
   </head>
   <body>

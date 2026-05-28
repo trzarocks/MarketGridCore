@@ -131,3 +131,51 @@ echo "CHECK2_OK"
 echo "CHECK3: required backward transitions present"
 rg -n "transition:validate:fail->enrich|transition:generate:qa_fail->validate" -S "${TARGETS[@]}"
 echo "CHECK3_OK"
+
+echo "CHECK4: generation-eligible validate packets include geohub prerequisite evidence"
+CHECK4_ROWS="$(
+  jq -r '
+    def has_generate_transition($codes):
+      ($codes | index("transition:validate:pass_generation_ready->generate")) != null
+      or ($codes | index("transition:validate:pass_with_waivers_generation_ready->generate")) != null;
+
+    def has_geohub_skill_ref($refs):
+      any(
+        $refs[];
+        test("skills/5185d615-76d8-4951-99a1-a25ca749f89e")
+        and test("Build Geohub Intelligence Packet")
+        and test("build-geohub-intelligence-packet")
+      );
+
+    def has_geohub_approval_ref($refs):
+      any(
+        $refs[];
+        test("geohub packet approval:(pass_research_grade|pass_with_waivers_generation_ready|pass_generation_ready)")
+      );
+
+    select(.stage == "validate")
+    | (.quality_gate.reason_codes // []) as $codes
+    | (.input_refs // []) as $refs
+    | (has_generate_transition($codes)) as $eligible
+    | (has_geohub_skill_ref($refs)) as $skill_ok
+    | (has_geohub_approval_ref($refs)) as $approval_ok
+    | [
+        .issue,
+        .batch_id,
+        (if $eligible then "generation_eligible" else "not_generation_eligible" end),
+        (if $skill_ok then "skill_ref_ok" else "skill_ref_missing" end),
+        (if $approval_ok then "approval_ref_ok" else "approval_ref_missing" end),
+        (if ($eligible and (($skill_ok | not) or ($approval_ok | not)))
+         then "MISSING_GEOHUB_PREREQ"
+         else "OK" end)
+      ] | @tsv
+  ' "${JSON_FILES[@]}"
+)"
+
+echo "$CHECK4_ROWS"
+
+if echo "$CHECK4_ROWS" | rg -q $'\tMISSING_GEOHUB_PREREQ$'; then
+  echo "CHECK4_MISSING_GEOHUB_PREREQ_FOUND"
+  exit 1
+fi
+echo "CHECK4_OK"

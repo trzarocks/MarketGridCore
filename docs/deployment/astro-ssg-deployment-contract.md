@@ -24,9 +24,9 @@ Out of scope:
 2. Route templates:
    - `src/pages/index.astro`
    - `src/pages/[state]/index.astro`
-   - `src/pages/[state]/[geo]/index.astro`
-   - `src/pages/[state]/[geo]/business-directory/[category]/index.astro`
-   - `src/pages/[state]/[geo]/business-directory/[category]/[listing]/index.astro`
+   - `src/pages/[state]/[county]/[geo]/index.astro`
+   - `src/pages/[state]/[county]/[geo]/business-directory/[category]/index.astro`
+   - `src/pages/[state]/[county]/[geo]/business-directory/[category]/[listing]/index.astro`
 3. Astro static build config: `apps/astro-ssg-thin-slice/astro.config.mjs`
 4. Lockfile: `apps/astro-ssg-thin-slice/package-lock.json`
 5. Deployment workflow contract: `docs/deployment/astro-thin-slice-workflow.md`
@@ -41,7 +41,8 @@ Astro is a deterministic renderer. It does not infer missing business data and d
 
 Required fields:
 - `state.slug` (lowercase, URL-safe)
-- `geo.slug` (lowercase, URL-safe, city-state style)
+- `county.slug` (lowercase, URL-safe)
+- `geo.slug` (lowercase, URL-safe city slug)
 - `geo.displayName`
 - `geo.canonicalUrl`
 - `breadcrumbs` (valid hierarchy to geo page)
@@ -54,7 +55,7 @@ Optional fields:
 - `faq`
 
 Hard fail conditions:
-- Missing `state.slug`, `geo.slug`, or `geo.canonicalUrl`
+- Missing `state.slug`, `county.slug`, `geo.slug`, or `geo.canonicalUrl`
 - Breadcrumb chain not rooted in homepage -> state -> geo
 - `geo.canonicalUrl` does not match generated geo route
 
@@ -62,6 +63,7 @@ Hard fail conditions:
 
 Required fields:
 - `state.slug`
+- `county.slug`
 - `geo.slug`
 - `category.slug`
 - `category.displayName`
@@ -83,6 +85,7 @@ Hard fail conditions:
 
 Required fields:
 - `state.slug`
+- `county.slug`
 - `geo.slug`
 - `category.slug`
 - `listing.slug`
@@ -143,18 +146,18 @@ A successful deployment run must produce:
 
 1. `apps/astro-ssg-thin-slice/dist/index.html`
 2. `apps/astro-ssg-thin-slice/dist/maryland/index.html`
-3. `apps/astro-ssg-thin-slice/dist/maryland/towson-md/index.html`
-4. `apps/astro-ssg-thin-slice/dist/maryland/towson-md/business-directory/restaurants/index.html`
-5. `apps/astro-ssg-thin-slice/dist/maryland/towson-md/business-directory/restaurants/banditos-bar-and-kitchen/index.html`
+3. `apps/astro-ssg-thin-slice/dist/maryland/baltimore-county/towson/index.html`
+4. `apps/astro-ssg-thin-slice/dist/maryland/baltimore-county/towson/business-directory/restaurants/index.html`
+5. `apps/astro-ssg-thin-slice/dist/maryland/baltimore-county/towson/business-directory/restaurants/banditos-bar-and-kitchen/index.html`
 6. `apps/astro-ssg-thin-slice/dist/sitemap.xml`
 
 ## MarketGrid Section to Astro Responsibility Mapping
 
 | MarketGrid section | Astro component/render responsibility | Contract type |
 | --- | --- | --- |
-| Geo hub | `src/pages/[state]/[geo]/index.astro` renders approved geo snapshot fields only | Presentational |
-| Category | `src/pages/[state]/[geo]/business-directory/[category]/index.astro` renders approved category/related-link blocks | Presentational |
-| Listing | `src/pages/[state]/[geo]/business-directory/[category]/[listing]/index.astro` renders approved listing/contact/action blocks | Presentational |
+| Geo hub | `src/pages/[state]/[county]/[geo]/index.astro` renders approved geo snapshot fields only | Presentational |
+| Category | `src/pages/[state]/[county]/[geo]/business-directory/[category]/index.astro` renders approved category/related-link blocks | Presentational |
+| Listing | `src/pages/[state]/[county]/[geo]/business-directory/[category]/[listing]/index.astro` renders approved listing/contact/action blocks | Presentational |
 | Breadcrumbs | Shared breadcrumb renderer consumes validated breadcrumb arrays | Render-rule enforcing |
 | FAQ | Shared FAQ renderer consumes validated FAQ items | Render-rule enforcing |
 | CTA/action panel | Shared CTA/action renderer requires valid action targets where required | Render-rule enforcing |

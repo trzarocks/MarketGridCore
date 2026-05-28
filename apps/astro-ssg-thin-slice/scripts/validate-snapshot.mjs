@@ -19,20 +19,22 @@ for (const [label, value] of required) {
   }
 }
 
-const geoSlugs = new Set();
+const geoKeys = new Set();
 
 for (const slice of data.slices) {
+  const countySlug = slice.county?.slug;
   const categorySlug = slice.category?.slug;
   const geoSlug = slice.geo?.slug;
   const listings = Array.isArray(slice.listings) ? slice.listings : [];
 
-  if (!geoSlug || !categorySlug) {
-    throw new Error('Missing required snapshot field: slices[*].geo.slug or slices[*].category.slug');
+  if (!countySlug || !geoSlug || !categorySlug) {
+    throw new Error('Missing required snapshot field: slices[*].county.slug, slices[*].geo.slug, or slices[*].category.slug');
   }
-  if (geoSlugs.has(geoSlug)) {
-    throw new Error(`Duplicate geo slug detected: ${geoSlug}`);
+  const geoKey = `${countySlug}/${geoSlug}`;
+  if (geoKeys.has(geoKey)) {
+    throw new Error(`Duplicate geo route key detected: ${geoKey}`);
   }
-  geoSlugs.add(geoSlug);
+  geoKeys.add(geoKey);
 
   if (listings.length === 0) {
     throw new Error(`Slice ${geoSlug}/${categorySlug} requires at least one listing.`);
@@ -40,8 +42,8 @@ for (const slice of data.slices) {
 
   const listingSlugs = new Set();
   for (const listing of listings) {
-    if (!listing.slug || !listing.address || !listing.phone) {
-      throw new Error(`Listing in ${geoSlug}/${categorySlug} is missing slug/address/phone.`);
+    if (!listing.slug || !listing.name) {
+      throw new Error(`Listing in ${geoSlug}/${categorySlug} is missing required slug/name.`);
     }
     if (listingSlugs.has(listing.slug)) {
       throw new Error(`Duplicate listing slug in ${geoSlug}/${categorySlug}: ${listing.slug}`);

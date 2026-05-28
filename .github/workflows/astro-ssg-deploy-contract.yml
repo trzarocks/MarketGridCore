@@ -69,9 +69,9 @@ jobs:
           set -euo pipefail
           test -f dist/index.html
           test -f dist/maryland/index.html
-          test -f dist/maryland/towson-md/index.html
-          test -f dist/maryland/towson-md/business-directory/restaurants/index.html
-          test -f dist/maryland/towson-md/business-directory/restaurants/banditos-bar-and-kitchen/index.html
+          test -f dist/maryland/baltimore-county/towson/index.html
+          test -f dist/maryland/baltimore-county/towson/business-directory/restaurants/index.html
+          test -f dist/maryland/baltimore-county/towson/business-directory/restaurants/banditos-bar-and-kitchen/index.html
           test -f dist/sitemap.xml
 
       - name: Determine preview requirement

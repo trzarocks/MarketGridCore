@@ -18,9 +18,9 @@ The canonical templates are:
 
 - `src/pages/index.astro`
 - `src/pages/[state]/index.astro`
-- `src/pages/[state]/[geo]/index.astro`
-- `src/pages/[state]/[geo]/business-directory/[category]/index.astro`
-- `src/pages/[state]/[geo]/business-directory/[category]/[listing]/index.astro`
+- `src/pages/[state]/[county]/[geo]/index.astro`
+- `src/pages/[state]/[county]/[geo]/business-directory/[category]/index.astro`
+- `src/pages/[state]/[county]/[geo]/business-directory/[category]/[listing]/index.astro`
 
 ## URL Rules
 
@@ -34,16 +34,18 @@ The canonical templates are:
 
 All approved records must resolve to these canonical patterns:
 
-1. Geo hub route: `/{geo-slug}/`
-2. Category route: `/{geo-slug}/{category-slug}/`
-3. Listing route: `/{geo-slug}/{category-slug}/{listing-slug}/`
+1. State route: `/{state-slug}/`
+2. Geo hub route: `/{state-slug}/{county-slug}/{geo-slug}/`
+3. Category route: `/{state-slug}/{county-slug}/{geo-slug}/business-directory/{category-slug}/`
+4. Listing route: `/{state-slug}/{county-slug}/{geo-slug}/business-directory/{category-slug}/{listing-slug}/`
 
 Canonical examples required by this contract:
 
-1. `/towson-md/`
-2. `/towson-md/plumbers/`
-3. `/towson-md/restaurants/`
-4. `/towson-md/plumbers/example-business/`
+1. `/maryland/`
+2. `/maryland/baltimore-county/towson/`
+3. `/maryland/baltimore-county/towson/business-directory/plumbers/`
+4. `/maryland/baltimore-county/towson/business-directory/restaurants/`
+5. `/maryland/baltimore-county/towson/business-directory/plumbers/example-business/`
 
 Slug rules:
 
@@ -51,9 +53,11 @@ Slug rules:
 2. No leading or trailing hyphens.
 3. No duplicate hyphen runs.
 4. No locale or query suffixes in canonical route paths.
-5. `geo-slug` must be globally unique for active thin-slice geos.
-6. `category-slug` uniqueness is scoped to a geo.
-7. `listing-slug` uniqueness is scoped to `(geo, category)`.
+5. `state-slug` must be globally unique for active thin-slice states.
+6. `county-slug` uniqueness is scoped to a state.
+7. `geo-slug` uniqueness is scoped to `(state, county)`.
+8. `category-slug` uniqueness is scoped to `(state, county, geo)`.
+9. `listing-slug` uniqueness is scoped to `(state, county, geo, category)`.
 
 ## Duplicate Detection
 

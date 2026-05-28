@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import Hero from '../../../../../../components/Hero.astro';
+import Section from '../../../../../../components/Section.astro';
+import ListingCard from '../../../../../../components/ListingCard.astro';
+import { thinSlice } from '../../../../../../data/thin-slice';
+import {
+  listingHref,
+  nearbySameCategoryTargets,
+  relatedCategoryTargets,
+  suppressInvalidTargets
+} from '../../../../../../lib/navigation';
+
+export function getStaticPaths() {
+  return thinSlice.slices.map((slice) => ({
+    params: {
+      state: thinSlice.state.slug,
+      county: slice.county.slug,
+      geo: slice.geo.slug,
+      category: slice.category.slug
+    },
+    props: { slice }
+  }));
+}
+
+const { slice } = Astro.props;
+const statePath = `/${thinSlice.state.slug}/`;
+const geoPath = `/${thinSlice.state.slug}/${slice.county.slug}/${slice.geo.slug}/`;
+const categoryPath = `/${thinSlice.state.slug}/${slice.county.slug}/${slice.geo.slug}/business-directory/${slice.category.slug}/`;
+const relatedTargets = suppressInvalidTargets(relatedCategoryTargets(slice), categoryPath);
+const nearbyTargets = suppressInvalidTargets(nearbySameCategoryTargets(slice), categoryPath);
+const hasListings = slice.listings.length > 0;
+---
+<BaseLayout title={`${slice.category.name} in ${slice.geo.name} | MarketGrid`}>
+  <Breadcrumbs items={[
+    { label: 'Home', href: '/' },
+    { label: thinSlice.state.name, href: statePath },
+    { label: slice.county.name },
+    { label: slice.geo.name, href: geoPath },
+    { label: 'Business Directory' },
+    { label: slice.category.name }
+  ]} />
+
+  <Hero
+    title={`${slice.category.name} in ${slice.geo.name}`}
+    description="Category page for the governed listing subset in this slice."
+  />
+
+  {hasListings ? (
+    <Section title="Compare Providers" description="Primary decision surface for selecting a listing profile.">
+      <div class="listing-grid">
+        {slice.listings.map((listing) => (
+          <ListingCard name={listing.name} href={listingHref(slice, listing)} description={listing.address} />
+        ))}
+      </div>
+    </Section>
+  ) : (
+    <Section title="Compare Providers" description="No listings are available for this category in the current geo.">
+      <article class="detail-panel">
+        <h3>No listings currently available</h3>
+        <p>Use related categories or nearby same-category destinations to continue.</p>
+      </article>
+    </Section>
+  )}
+
+  {relatedTargets.length > 0 ? (
+    <Section title="Related Categories" description="Contextual alternatives in the same geo.">
+      <div class="listing-grid">
+        {relatedTargets.map((target) => (
+          <article class="detail-panel">
+            <h3><a href={target.href}>{target.label}</a></h3>
+            {target.description ? <p>{target.description}</p> : null}
+          </article>
+        ))}
+      </div>
+    </Section>
+  ) : null}
+
+  {nearbyTargets.length > 0 ? (
+    <Section title="Nearby Same-Category Paths" description="Expand to nearby geos after contextual options.">
+      <div class="listing-grid">
+        {nearbyTargets.map((target) => (
+          <article class="detail-panel">
+            <h3><a href={target.href}>{target.label}</a></h3>
+            {target.description ? <p>{target.description}</p> : null}
+          </article>
+        ))}
+      </div>
+    </Section>
+  ) : null}
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+interface Action {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  primaryAction?: Action;
+}
+
+const { title, description, primaryAction } = Astro.props;
+---
+<header class="hero page-section">
+  <div class="section-shell">
+    <div class="hero-panel">
+      <h1>{title}</h1>
+      {description ? <p>{description}</p> : null}
+      {primaryAction ? (
+        <div class="cta-group">
+          <a class="button-primary" href={primaryAction.href}>{primaryAction.label}</a>
+        </div>
+      ) : null}
+    </div>
+  </div>
+</header>
